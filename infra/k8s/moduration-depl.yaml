@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: moduration-service-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: moduration-service
+  template:
+    metadata:
+      labels:
+        app: moduration-service
+    spec:
+      containers:
+        - name: moduration-service
+          image: nahidh597/moduration-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: moduration-service-srv
+spec:
+  selector:
+    app: moduration-service
+  type: ClusterIP
+  ports:
+  - name: moduration-service
+    protocol: TCP
+    port: 4003
+    targetPort: 4003
